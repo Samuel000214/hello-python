@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { 
   Brain, AlertTriangle, TrendingUp, Users, Zap, Clock,
-  ChevronRight, MessageSquare, Shield, Target
+  ChevronRight, MessageSquare, Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +15,7 @@ const insights = [
     type: 'prediction',
     priority: 'high',
     title: 'Conflict Risk Detected',
-    description: 'Grade 10-A shows 85% probability of interpersonal conflict based on recent chatting patterns and behavioral indicators.',
+    description: 'Grade 10-A shows 85% probability of interpersonal conflict based on recent chatting patterns.',
     confidence: 85,
     timeAgo: '2 hours ago',
     action: 'Preventative Intervention',
@@ -26,7 +26,7 @@ const insights = [
     type: 'pattern',
     priority: 'medium',
     title: 'Attendance Anomaly',
-    description: '5 students from Grade 9-B have synchronized absences on Fridays for the past 3 weeks. Possible coordinated behavior.',
+    description: '5 students from Grade 9-B have synchronized absences on Fridays for 3 weeks.',
     confidence: 72,
     timeAgo: '4 hours ago',
     action: 'Investigate Pattern',
@@ -37,7 +37,7 @@ const insights = [
     type: 'early-warning',
     priority: 'high',
     title: 'Behavioral Escalation',
-    description: 'Student Juan Dela Cruz (10-A) shows escalating pattern: 3 minor offenses in 2 weeks. Risk of major incident: 78%.',
+    description: 'Student Juan Dela Cruz (10-A) shows escalating pattern: 3 minor offenses in 2 weeks.',
     confidence: 78,
     timeAgo: '5 hours ago',
     action: 'Guidance Referral',
@@ -48,7 +48,7 @@ const insights = [
     type: 'insight',
     priority: 'low',
     title: 'Peak Incident Hours',
-    description: 'Analysis shows 67% of incidents occur between 9:30-10:30 AM. Consider increased monitoring during recess.',
+    description: '67% of incidents occur between 9:30-10:30 AM. Consider increased monitoring.',
     confidence: 92,
     timeAgo: '1 day ago',
     action: 'View Analysis',
@@ -59,7 +59,7 @@ const insights = [
     type: 'recommendation',
     priority: 'medium',
     title: 'Intervention Success',
-    description: 'Peer mentoring program in Grade 11 has reduced repeat offenses by 45%. Recommend expansion to Grade 10.',
+    description: 'Peer mentoring in Grade 11 reduced repeat offenses by 45%. Recommend expansion.',
     confidence: 88,
     timeAgo: '2 days ago',
     action: 'Implement Program',
@@ -67,103 +67,96 @@ const insights = [
   },
 ];
 
-const getPriorityColor = (priority: string) => {
+const getPriorityStyle = (priority: string) => {
   switch (priority) {
-    case 'high': return 'bg-destructive/10 text-destructive border-destructive/20';
-    case 'medium': return 'bg-warning/10 text-warning border-warning/20';
-    case 'low': return 'bg-success/10 text-success border-success/20';
-    default: return 'bg-secondary text-muted-foreground border-border';
+    case 'high': return 'bg-red-400/20 text-red-400';
+    case 'medium': return 'bg-yellow-400/20 text-yellow-400';
+    case 'low': return 'bg-green-400/20 text-green-400';
+    default: return 'bg-white/10 text-white/60';
   }
 };
 
 const AiInsights = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/30 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="h-screen w-screen overflow-hidden bg-background flex items-center justify-center">
+      <div className="w-[70vw] max-w-4xl mx-auto h-full flex flex-col py-6 pb-[10vh]">
         <BackButton dashboardPath="/pod/dashboard" />
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-4"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-beadle/20 flex items-center justify-center">
-              <Brain className="h-7 w-7 text-primary" />
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+              <Brain className="h-5 w-5 text-white/70" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-foreground">AI Insights</h1>
-              <p className="text-muted-foreground">Intelligence feed and early warning system</p>
+              <h1 className="text-xl font-semibold text-white/95">AI Insights</h1>
+              <p className="text-xs text-white/50">Intelligence feed and early warnings</p>
             </div>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            <GlassCard className="p-4 text-center" glow="red">
-              <p className="text-3xl font-bold text-destructive">3</p>
-              <p className="text-sm text-muted-foreground">High Priority</p>
-            </GlassCard>
-            <GlassCard className="p-4 text-center" glow="amber">
-              <p className="text-3xl font-bold text-warning">5</p>
-              <p className="text-sm text-muted-foreground">Active Predictions</p>
-            </GlassCard>
-            <GlassCard className="p-4 text-center" glow="green">
-              <p className="text-3xl font-bold text-success">89%</p>
-              <p className="text-sm text-muted-foreground">Model Accuracy</p>
-            </GlassCard>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="glass-panel rounded-lg p-3 text-center">
+              <p className="text-xl font-bold text-red-400">3</p>
+              <p className="text-xs text-white/50">High Priority</p>
+            </div>
+            <div className="glass-panel rounded-lg p-3 text-center">
+              <p className="text-xl font-bold text-yellow-400">5</p>
+              <p className="text-xs text-white/50">Active Predictions</p>
+            </div>
+            <div className="glass-panel rounded-lg p-3 text-center">
+              <p className="text-xl font-bold text-green-400">89%</p>
+              <p className="text-xs text-white/50">Model Accuracy</p>
+            </div>
           </div>
         </motion.div>
 
         {/* Insight Feed */}
-        <div className="space-y-4">
+        <div className="flex-1 overflow-y-auto space-y-3">
           {insights.map((insight, index) => (
             <motion.div
               key={insight.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <GlassCard className="p-6" glow={insight.priority === 'high' ? 'red' : insight.priority === 'medium' ? 'amber' : 'green'}>
-                <div className="flex items-start gap-4">
-                  {/* Icon */}
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${getPriorityColor(insight.priority)}`}>
-                    <insight.icon className="h-6 w-6" />
+              <GlassCard className="p-4">
+                <div className="flex items-start gap-3">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${getPriorityStyle(insight.priority)}`}>
+                    <insight.icon className="h-5 w-5" />
                   </div>
 
-                  {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="text-xs uppercase">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="secondary" className="text-xs uppercase bg-white/10 text-white/60">
                         {insight.type}
                       </Badge>
-                      <Badge variant="outline" className={`text-xs ${getPriorityColor(insight.priority)}`}>
+                      <Badge variant="outline" className={`text-xs ${getPriorityStyle(insight.priority)}`}>
                         {insight.priority}
                       </Badge>
-                      <span className="text-xs text-muted-foreground ml-auto">{insight.timeAgo}</span>
+                      <span className="text-xs text-white/40 ml-auto">{insight.timeAgo}</span>
                     </div>
 
-                    <h3 className="font-semibold text-lg mb-2">{insight.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                      {insight.description}
-                    </p>
+                    <h3 className="font-medium text-white/90 mb-1">{insight.title}</h3>
+                    <p className="text-sm text-white/50 mb-3">{insight.description}</p>
 
-                    {/* Confidence Bar */}
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex items-center gap-3">
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs text-muted-foreground">AI Confidence</span>
-                          <span className="text-xs font-medium">{insight.confidence}%</span>
+                          <span className="text-xs text-white/40">Confidence</span>
+                          <span className="text-xs font-medium text-white/60">{insight.confidence}%</span>
                         </div>
-                        <Progress value={insight.confidence} className="h-1.5" />
+                        <Progress value={insight.confidence} className="h-1" />
                       </div>
+                      <Button size="sm" className="gap-1 bg-white/10 hover:bg-white/15 text-white/80">
+                        <Zap className="h-3 w-3" />
+                        {insight.action}
+                        <ChevronRight className="h-3 w-3" />
+                      </Button>
                     </div>
-
-                    {/* Action Button */}
-                    <Button className="gap-2" size="sm">
-                      <Zap className="h-4 w-4" />
-                      {insight.action}
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
                   </div>
                 </div>
               </GlassCard>
@@ -175,18 +168,18 @@ const AiInsights = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-8"
+          transition={{ delay: 0.3 }}
+          className="mt-4"
         >
-          <GlassCard className="p-4 flex items-center justify-between" hover={false}>
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-              <span className="text-sm text-muted-foreground">AI Model Active</span>
+          <GlassCard className="p-3 flex items-center justify-between" hover={false}>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-xs text-white/50">AI Model Active</span>
             </div>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>Last updated: 2 min ago</span>
-              <Button variant="ghost" size="sm" className="gap-1">
-                <MessageSquare className="h-4 w-4" />
+            <div className="flex items-center gap-3 text-xs text-white/40">
+              <span>Updated 2 min ago</span>
+              <Button variant="ghost" size="sm" className="gap-1 text-white/50 hover:text-white/70">
+                <MessageSquare className="h-3 w-3" />
                 Feedback
               </Button>
             </div>

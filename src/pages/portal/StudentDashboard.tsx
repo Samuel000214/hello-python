@@ -16,85 +16,62 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    {
-      title: 'School Rules',
-      description: 'View student handbook and guidelines',
-      icon: BookOpen,
-      color: 'from-blue-500 to-indigo-600',
-    },
-    {
-      title: 'Visitor Alerts',
-      description: 'Important announcements and notices',
-      icon: Bell,
-      color: 'from-amber-500 to-orange-600',
-    },
-    {
-      title: 'Safety Guidelines',
-      description: 'Emergency procedures and contacts',
-      icon: Shield,
-      color: 'from-red-500 to-rose-600',
-    },
-    {
-      title: 'My Records',
-      description: 'View your attendance and behavior',
-      icon: FileText,
-      color: 'from-emerald-500 to-teal-600',
-    },
+    { title: 'School Rules', description: 'View handbook', icon: BookOpen },
+    { title: 'Visitor Alerts', description: 'Announcements', icon: Bell },
+    { title: 'Safety Guidelines', description: 'Emergency info', icon: Shield },
+    { title: 'My Records', description: 'Attendance & behavior', icon: FileText },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pb-24">
-      {/* Header */}
-      <div className="p-6 md:p-8">
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          onClick={() => navigate('/auth/role-select')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Sign Out
-        </motion.button>
-
+    <div className="h-screen w-screen overflow-hidden bg-background flex items-center justify-center">
+      <div className="w-[70vw] max-w-3xl mx-auto h-full flex flex-col py-6 pb-[10vh]">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center max-w-2xl mx-auto"
+          className="mb-6"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-50 text-cyan-600 text-sm font-medium mb-4">
-            <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-            Student Portal
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            Welcome, Student
-          </h1>
-          <p className="text-muted-foreground">
-            Access your school information and resources
-          </p>
-        </motion.div>
-      </div>
+          <button
+            onClick={() => navigate('/auth/role-select')}
+            className="flex items-center gap-2 text-white/50 hover:text-white/70 transition-colors mb-4 text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Sign Out
+          </button>
 
-      {/* Menu Grid */}
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs font-medium text-white/70 mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              Student Portal
+            </div>
+            <h1 className="text-2xl font-semibold text-white/95 mb-1">
+              Welcome, Student
+            </h1>
+            <p className="text-sm text-white/50">
+              Access your school information
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Menu Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             return (
               <GlassCard
                 key={item.title}
-                delay={index * 0.1}
-                glow="blue"
-                className="p-6"
+                delay={index * 0.05}
+                className="p-4"
               >
-                <div className="flex items-start gap-4">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-lg flex-shrink-0`}>
-                    <Icon className="w-7 h-7 text-white" />
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-5 h-5 text-white/70" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                    <h3 className="font-medium text-white/90 text-sm mb-0.5">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs text-white/50">
                       {item.description}
                     </p>
                   </div>
@@ -106,29 +83,29 @@ const StudentDashboard = () => {
 
         {/* Recent Alerts */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-8"
+          transition={{ delay: 0.2 }}
+          className="flex-1"
         >
-          <h2 className="text-lg font-semibold text-foreground mb-4">Recent Alerts</h2>
-          <GlassCard className="p-6" hover={false}>
-            <div className="space-y-4">
+          <h2 className="text-sm font-medium text-white/70 mb-3">Recent Alerts</h2>
+          <GlassCard className="p-4" hover={false}>
+            <div className="space-y-3">
               {[
                 { title: 'Assembly Tomorrow', time: '2 hours ago', type: 'info' },
                 { title: 'Uniform Reminder', time: '1 day ago', type: 'warning' },
               ].map((alert, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-gray-50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 + i * 0.05 }}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-white/5"
                 >
-                  <div className={`w-3 h-3 rounded-full ${alert.type === 'info' ? 'bg-blue-500' : 'bg-amber-500'}`} />
+                  <div className={`w-2 h-2 rounded-full ${alert.type === 'info' ? 'bg-white/60' : 'bg-yellow-400'}`} />
                   <div className="flex-1">
-                    <p className="font-medium text-foreground">{alert.title}</p>
-                    <p className="text-xs text-muted-foreground">{alert.time}</p>
+                    <p className="font-medium text-white/80 text-sm">{alert.title}</p>
+                    <p className="text-xs text-white/40">{alert.time}</p>
                   </div>
                 </motion.div>
               ))}
