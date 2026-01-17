@@ -8,62 +8,49 @@ import {
   GraduationCap, 
   Heart 
 } from 'lucide-react';
-import GlassCard from '@/components/ui/GlassCard';
 
 const roles = [
   {
     id: 'admin',
     title: 'Administrator',
-    description: 'Full system access and configuration',
+    description: 'Full system access',
     icon: Shield,
     path: '/auth/admin-production',
-    gradient: 'from-amber-500 to-orange-600',
-    glow: 'amber' as const,
   },
   {
     id: 'coordinator',
     title: 'Coordinator (PoD)',
-    description: 'Discipline management and oversight',
+    description: 'Discipline oversight',
     icon: Users,
     path: '/portal/coordinator',
-    gradient: 'from-blue-500 to-indigo-600',
-    glow: 'blue' as const,
   },
   {
     id: 'adviser',
     title: 'Adviser',
-    description: 'Class management and student monitoring',
+    description: 'Class management',
     icon: Briefcase,
     path: '/portal/adviser',
-    gradient: 'from-emerald-500 to-teal-600',
-    glow: 'green' as const,
   },
   {
     id: 'beadle',
     title: 'Beadle',
-    description: 'Attendance and incident reporting',
+    description: 'Incident reporting',
     icon: UserCheck,
     path: '/portal/beadle',
-    gradient: 'from-purple-500 to-violet-600',
-    glow: 'purple' as const,
   },
   {
     id: 'student',
     title: 'Student',
-    description: 'View rules and visitor alerts',
+    description: 'View rules & alerts',
     icon: GraduationCap,
     path: '/portal/student',
-    gradient: 'from-cyan-500 to-blue-600',
-    glow: 'blue' as const,
   },
   {
     id: 'parent',
     title: 'Parent',
-    description: "Monitor child's records and acknowledgments",
+    description: 'Monitor records',
     icon: Heart,
     path: '/portal/parent',
-    gradient: 'from-rose-500 to-pink-600',
-    glow: 'red' as const,
   },
 ];
 
@@ -71,99 +58,85 @@ const RoleSelect = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 flex flex-col items-center justify-center p-6 overflow-hidden">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 opacity-30">
+    <div className="h-screen w-screen overflow-hidden bg-background flex items-center justify-center">
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(37, 99, 235, 0.15) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.3) 1px, transparent 0)`,
             backgroundSize: '40px 40px',
           }}
         />
       </div>
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-12 relative z-10"
-      >
+      {/* 70% Focus Column */}
+      <div className="w-[70vw] max-w-4xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          System Online
+          <motion.div
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-xs font-medium text-white/70 mb-4"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+            System Online
+          </motion.div>
+
+          <h1 className="text-2xl md:text-3xl font-semibold text-white/95 mb-2">
+            Select Your Role
+          </h1>
+          <p className="text-white/50 text-sm">
+            Choose your access level to continue
+          </p>
         </motion.div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
-          Select Your Role
-        </h1>
-        <p className="text-muted-foreground text-lg max-w-md mx-auto">
-          Choose your access level to continue to the POD AI system
-        </p>
-      </motion.div>
+        {/* Role Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {roles.map((role, index) => {
+            const Icon = role.icon;
 
-      {/* Role cards grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl w-full">
-        {roles.map((role, index) => {
-          const Icon = role.icon;
+            return (
+              <motion.button
+                key={role.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                whileHover={{ scale: 1.01, backgroundColor: 'rgba(255,255,255,0.1)' }}
+                whileTap={{ scale: 0.99 }}
+                onClick={() => navigate(role.path)}
+                className="glass-panel rounded-xl p-4 text-left group transition-all duration-200"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg bg-white/10 group-hover:bg-white/15 transition-colors">
+                    <Icon className="w-5 h-5 text-white/80" strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-medium text-white/90 text-sm">{role.title}</h3>
+                    <p className="text-xs text-white/50 mt-0.5">{role.description}</p>
+                  </div>
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
 
-          return (
-            <GlassCard
-              key={role.id}
-              onClick={() => navigate(role.path)}
-              glow={role.glow}
-              delay={0.1 + index * 0.08}
-              className="p-6 group"
-            >
-              <div className="flex flex-col items-center text-center">
-                {/* Icon */}
-                <motion.div
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${role.gradient} flex items-center justify-center shadow-lg mb-5`}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
-                >
-                  <Icon className="w-8 h-8 text-white" />
-                </motion.div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {role.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-muted-foreground text-sm">
-                  {role.description}
-                </p>
-
-                {/* Arrow indicator */}
-                <motion.div
-                  className="mt-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-                  initial={{ x: -10 }}
-                  whileHover={{ x: 0 }}
-                >
-                  <span className="text-sm font-medium">Continue →</span>
-                </motion.div>
-              </div>
-            </GlassCard>
-          );
-        })}
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-8 text-center"
+        >
+          <p className="text-white/30 text-xs">Secure multi-factor authentication enabled</p>
+        </motion.div>
       </div>
-
-      {/* Footer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="mt-12 text-center text-muted-foreground text-sm relative z-10"
-      >
-        <p>Secure multi-factor authentication enabled</p>
-      </motion.div>
     </div>
   );
 };
